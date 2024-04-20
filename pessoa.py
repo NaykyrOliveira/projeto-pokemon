@@ -24,7 +24,7 @@ class Pessoa:
         self.pokemons = pokemons
 
     def __str__(self):
-        return '{} ({})'.format(self.nome, self.lvl_player)
+        return '{} ,lvl({})'.format(self.nome, self.lvl_player)
 
     def mostrar_pokemons(self):
         if self.pokemons:
