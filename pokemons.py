@@ -1,4 +1,4 @@
-from pokemon_tipos import PokemonEletrico, PokemonFogo, PokemonDragao, PokemonAgua
+from pokemon_tipos import *
 
 
 class Pikachu(PokemonEletrico):
