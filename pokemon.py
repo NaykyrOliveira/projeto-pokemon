@@ -16,9 +16,9 @@ class Pokemon:
         self.especie = especie
 
         if nome:
-            self.name = nome
+            self.nome = nome
         elif pokemons:
-            self.name = random.choice(pokemons)
+            self.nome = random.choice(pokemons)
         else:
             self.nome = self.especie
 
@@ -26,4 +26,4 @@ class Pokemon:
         return '{} ({})' .format(self.nome, self.level)
 
     def atacar(self, pokemon):
-        print('{} lançou {} em {}'.format(self.nome, self.ataque, pokemon))
+        print('{} lançou um ataque em {}'.format(self.nome, pokemon))
