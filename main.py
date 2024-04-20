@@ -1,7 +1,11 @@
-from pokemons import Pikachu, Charmander
+from pessoa import *
 
-meu_pokemon = Pikachu('Pikachu')
-amigo_pokemon = Charmander('Charmander')
 
-print(meu_pokemon, meu_pokemon.tipo)
-print(amigo_pokemon, amigo_pokemon.tipo)
+meu_pokemon = Pikachu()
+meu_pokemon2 = Charmander()
+
+eu = Player(nome='Ash', pokemons=[meu_pokemon, meu_pokemon2])
+
+print(eu)
+eu.mostrar_pokemons()
+

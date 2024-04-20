@@ -1,5 +1,9 @@
 class Pokemon:
-    def __init__(self, level=1, nome=None, ataque='Ataque básico'):
+    def __init__(self,
+                 level: int = 1,
+                 nome: str = None,
+                 ataque='Ataque básico'):
+
         self.level = level
         self.ataque = ataque
         self.nome = nome if nome else self.especie
