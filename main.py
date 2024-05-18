@@ -1,6 +1,8 @@
 import colorama
-from colorama import Fore, Style
 import random
+import pickle
+
+from colorama import Fore, Style
 from pessoa import Player, Inimigo
 from pokemons import PokemonEletrico, PokemonFogo, PokemonAgua, PokemonPlanta
 
@@ -34,26 +36,51 @@ def escolher_pokemon_inicial(player):
             print(Fore.RED + 'Escolha inválida')
 
 
+def salvar_jogo(player):
+    try:
+        with open('database.db', 'wb') as arquivo:
+            pickle.dump(player, arquivo)
+            print('Jogo Salvo com sucesso!')
+    except Exception as erro:
+        print('Erro ao salvar o jogo')
+        print(erro)
+
+
+def carregar_jogo():
+    try:
+        with open('database.db', 'rb') as arquivo:
+            player = pickle.load(arquivo)
+            print('Loading feito com sucesso!')
+            return player
+    except Exception as erro:
+        print('Save não encontrado, vamos iniciar um novo jogo?')
+
+
 if __name__ == '__main__':
     print(Fore.GREEN + 'Bem-vindo ao game Pokemon RPG de terminal')
-    nome = input('Olá, qual é o seu nome? ')
-    player = Player(nome)
 
-    print('Olá {}, esse é um mundo habitado por pokemons, e a partir de agora sua missão é se tornar um mestre dos pokemons!'.format(player))
-    print('Capture o máximo de pokemons que conseguir e lute com seus inimigos.')
-    player.mostrar_dinheiro()
+    player = carregar_jogo()
 
-    if player.pokemons:
-        print('Já vi que você possui alguns pokemons')
-        player.mostrar_pokemons()
-    else:
-        print('Você não possui nenhum pokemon, portanto precisa escolher um para iniciar a sua jornada')
-        escolher_pokemon_inicial(player)
+    if not player:
+        nome = input('Qual é o seu nome? ')
+        player = Player(nome)
 
-    print('Agora que você capturou o seu primeiro pokemon, enfrente o seu primeiro inimigo')
+        print('Olá {}, esse é um mundo habitado por pokemons, e a partir de agora sua missão é se tornar um mestre dos pokemons!'.format(player))
+        print('Capture o máximo de pokemons que conseguir e lute com seus inimigos.')
+        player.mostrar_dinheiro()
 
-    primeiro_inimigo = Inimigo()
-    player.batalhar(primeiro_inimigo)
+        if player.pokemons:
+            print('Já vi que você possui alguns pokemons')
+            player.mostrar_pokemons()
+        else:
+            print('Você não possui nenhum pokemon, portanto precisa escolher um para iniciar a sua jornada')
+            escolher_pokemon_inicial(player)
+
+        print('Agora que você capturou o seu primeiro pokemon, enfrente o seu primeiro inimigo')
+
+        primeiro_inimigo = Inimigo()
+        player.batalhar(primeiro_inimigo)
+        salvar_jogo(player)
 
     while True:
         print('O que você deseja fazer agora? ')
@@ -69,9 +96,11 @@ if __name__ == '__main__':
             break
         elif escolha == '1':
             player.explorar()
+            salvar_jogo(player)
         elif escolha == '2':
             inimigo_aleatorio = Inimigo()
             player.batalhar(inimigo_aleatorio)
+            salvar_jogo(player)
         elif escolha == '3':
             player.mostrar_pokemons()
         else:
