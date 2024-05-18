@@ -59,6 +59,7 @@ if __name__ == '__main__':
         print('O que você deseja fazer agora? ')
         print('1 - Explorar pelo mapa')
         print('2 - Lutar com um inimigo')
+        print('3 - Mostrar Pokédex')
         print('0 - Sair do jogo')
 
         escolha = input('Sua escolha: ')
@@ -71,5 +72,7 @@ if __name__ == '__main__':
         elif escolha == '2':
             inimigo_aleatorio = Inimigo()
             player.batalhar(inimigo_aleatorio)
+        elif escolha == '3':
+            player.mostrar_pokemons()
         else:
             print(Fore.RED + 'Opção inválida')
